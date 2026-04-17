@@ -26,6 +26,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules)
+set(Sophus_DIR ${PROJECT_SOURCE_DIR}/Thirdparty/Sophus/build)
 find_package(Sophus REQUIRED)
 
 find_package(OpenCV 4 QUIET)
@@ -171,6 +172,10 @@ target_link_libraries(mono_live ${PROJECT_NAME} ${OpenCV_LIBS})
 add_executable(mono_euroc
         Examples/Monocular/mono_euroc.cc)
 target_link_libraries(mono_euroc ${PROJECT_NAME} ${OpenCV_LIBS})
+
+add_executable(mono_tum
+        Examples/Monocular/mono_tum.cc)
+target_link_libraries(mono_tum ${PROJECT_NAME} ${OpenCV_LIBS})
 
 # Tools
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/tools)

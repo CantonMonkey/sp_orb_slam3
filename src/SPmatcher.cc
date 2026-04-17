@@ -36,7 +36,7 @@ namespace ORB_SLAM3
 {
  
 const float SPmatcher::TH_HIGH = 0.55;
-const float SPmatcher::TH_LOW = 0.25;
+const float SPmatcher::TH_LOW = 0.35;
 const int SPmatcher::HISTO_LENGTH = 30;
 
 std::shared_ptr<LightGlue> SPmatcher::mpLightGlue = nullptr;
@@ -233,7 +233,7 @@ int SPmatcher::SearchByBoW(KeyFrame* pKF,Frame &F, vector<MapPoint*> &vpMapPoint
 
                 if(bestDist1<=TH_LOW)
                 {
-                    if(static_cast<float>(bestDist1)<mfNNratio*static_cast<float>(bestDist2))
+                    bool ratioPass = static_cast<float>(bestDist1) < mfNNratio * static_cast<float>(bestDist2); bool distGood = bestDist1 < 0.15f || bestDist2 >= 1.0f; if(ratioPass || distGood)
                     {
                         vpMapPointMatches[bestIdxF]=pMP;
 
@@ -583,7 +583,7 @@ int SPmatcher::SearchByBoW(KeyFrame *pKF1, KeyFrame *pKF2, vector<MapPoint *> &v
 
                 if(bestDist1<TH_LOW)
                 {
-                    if(static_cast<float>(bestDist1)<mfNNratio*static_cast<float>(bestDist2))
+                    bool ratioPass = static_cast<float>(bestDist1) < mfNNratio * static_cast<float>(bestDist2); bool distGood = bestDist1 < 0.15f || bestDist2 >= 1.0f; if(ratioPass || distGood)
                     {
                         vpMatches12[idx1]=vpMapPoints2[bestIdx2];
                         vbMatched2[bestIdx2]=true;
